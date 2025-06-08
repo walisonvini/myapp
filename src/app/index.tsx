@@ -28,18 +28,11 @@ export default function Index() {
 
       const user = await userDatabase.login(email, password);
       
-      if (user) {
-        logIn();
-      } else {
-        Alert.alert(
-          "Erro ao fazer login",
-          "Email ou senha incorretos. Por favor, tente novamente."
-        );
-      }
+      logIn(user);
     } catch (error) {
       Alert.alert(
         "Erro ao fazer login",
-        "Ocorreu um erro ao tentar fazer login. Por favor, tente novamente."
+        error instanceof Error ? error.message : 'Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.'
       );
     }
   };

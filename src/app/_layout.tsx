@@ -1,4 +1,4 @@
-import { Redirect, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import { SQLiteProvider } from 'expo-sqlite';
 import { AuthProvider } from '../../contexts/AuthContext';
 import { initializeDatabase } from './database/initializeDatabase';

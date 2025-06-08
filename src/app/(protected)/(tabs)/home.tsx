@@ -1,34 +1,21 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { useAuth } from "../../../contexts/AuthContext";
-import Button from "../components/Button/Button";
+import { useAuth } from "../../../../contexts/AuthContext";
 
 export default function Home() {
-  const { logOut } = useAuth();
-
-  const handleLogout = () => {
-    logOut();
-  };
+  const { logOut, user } = useAuth();
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.welcomeText}>
-            Bem-vindo ao seu App!
+            Bem-vindo, {user?.name || 'Usuário'}!
           </Text>
           <Text style={styles.subtitleText}>
             Você está logado e pode começar a usar o aplicativo.
           </Text>
         </View>
 
-        <Button 
-          title="Sair" 
-          onPress={handleLogout}
-        />
-      </View>
-
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>© 2024 Meu App</Text>
       </View>
     </SafeAreaView>
   );
@@ -60,16 +47,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     textAlign: 'center',
-  },
-  footer: {
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-    alignItems: 'center',
-    backgroundColor: '#000',
-  },
-  footerText: {
-    color: '#666',
-    fontSize: 12,
-  },
+  }
 });

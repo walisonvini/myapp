@@ -12,6 +12,9 @@ export async function initializeDatabase(database: SQLiteDatabase) {
             password VARCHAR(255) NOT NULL,
             change_password BOOLEAN DEFAULT 0,
             active BOOLEAN DEFAULT 1
-        )
+        );
+
+        INSERT OR IGNORE INTO users (name, phone, email, password, user_type, active)
+        VALUES ('Admin', '11999999999', 'admin@admin.com', 'admin', 1, 1);
     `);
 }

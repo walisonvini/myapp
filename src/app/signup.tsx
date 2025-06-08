@@ -55,7 +55,7 @@ export default function Signup() {
         password,
         phone,
         profile_image: null,
-        user_type: false,
+        user_type: 0,
         change_password: false,
         active: true,
       });

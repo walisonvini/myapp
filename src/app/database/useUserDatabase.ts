@@ -5,7 +5,7 @@ export type UserDatabase = {
     name: string;
     phone: string;
     profile_image: string | null;
-    user_type: boolean;
+    user_type: number;
     email: string;
     password: string;
     change_password: boolean;
@@ -44,9 +44,17 @@ function useUserDatabase() {
 
     async function login(email: string, password: string) {
         try {
-            const query = "SELECT * FROM users WHERE email = ? AND password = ? AND active = 1";
+            const query = "SELECT * FROM users WHERE email = ? AND password = ?";
 
             const response = await database.getFirstAsync<UserDatabase>(query, [email, password]);
+
+            if (!response) {
+                throw new Error('Email ou senha incorretos');
+            }
+
+            if (!response.active) {
+                throw new Error('Usuário não está ativo');
+            }
 
             return response;
         } catch (error) {
@@ -54,34 +62,64 @@ function useUserDatabase() {
         }
     }
 
-    async function update(data: Pick<UserDatabase, 'id'> & Partial<Pick<UserDatabase, 'phone' | 'profile_image'>>) {
+    async function update(data: Pick<UserDatabase, 'id'> & Partial<Omit<UserDatabase, 'id'>>) {
         if (!data.id) {
             throw new Error('ID is required for update');
         }
 
-        const statement = await database.prepareAsync(
-            'UPDATE users SET phone = ?, profile_image = ? WHERE id = ?'
-        );
+        // Remove o id do objeto de dados para montar o update
+        const { id, ...fields } = data;
+
+        // Filtra apenas os campos definidos (não undefined)
+        const keys = Object.keys(fields).filter((key) => fields[key as keyof typeof fields] !== undefined);
+
+        if (keys.length === 0) {
+            throw new Error('No valid fields to update');
+        }
+
+        // Cria o SQL dinâmico com base nos campos fornecidos
+        const setClause = keys.map((key) => `${key} = $${key}`).join(', ');
+        const params = keys.reduce((acc, key) => ({
+            ...acc,
+            [`$${key}`]: fields[key as keyof typeof fields]
+        }), { $id: id });
+
+        const sql = `UPDATE users SET ${setClause} WHERE id = $id`;
+
+        const statement = await database.prepareAsync(sql);
 
         try {
-            const result = await statement.executeAsync([
-                data.phone ?? null,
-                data.profile_image ?? null,
-                data.id
-            ]);
-
+            const result = await statement.executeAsync(params);
             return result;
         } catch (error) {
             throw error;
         } finally {
             await statement.finalizeAsync();
         }
+    }    
+
+    async function getUserById(id: number) {
+        const query = "SELECT * FROM users WHERE id = ?";
+
+        const response = await database.getFirstAsync<UserDatabase>(query, [id]);
+
+        return response;
     }
-        
+
+    async function list() {
+        const query = "SELECT * FROM users";
+
+        const response = await database.getAllAsync<UserDatabase>(query);
+
+        return response;
+    }
+
     return {
         create,
         login,
-        update
+        update,
+        getUserById,
+        list
     };
 }
 
