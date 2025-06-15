@@ -31,6 +31,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+        name="files"
+        options={{
+          title: 'Arquivos',
+          tabBarIcon: ({ color }) => <FontAwesome name="file" size={24} color={color} />,
+        }}
+      />
       
       <Tabs.Screen
         name="profile"
@@ -41,10 +49,19 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
+        name="uploadFile"
+        options={{
+          title: 'Upload de Arquivo',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="upload" color={color} />,
+          href: isAdmin ? undefined : null,
+        }}
+      />
+
+      <Tabs.Screen
         name="users"
         options={{
           title: 'Usuários',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="users" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="users" size={24} color={color} />,
           href: isAdmin ? undefined : null,
         }}
       />

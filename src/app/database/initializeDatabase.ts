@@ -14,6 +14,23 @@ export async function initializeDatabase(database: SQLiteDatabase) {
             active BOOLEAN DEFAULT 1
         );
 
+        CREATE TABLE IF NOT EXISTS files (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title VARCHAR(100) NOT NULL,
+            file_path VARCHAR(255) NOT NULL,
+            created_by INTEGER NOT NULL,
+            responsible_by INTEGER,
+            status VARCHAR(50) NOT NULL,
+            text TEXT DEFAULT NULL,
+
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            
+            
+            FOREIGN KEY (created_by) REFERENCES users(id),
+            FOREIGN KEY (responsible_by) REFERENCES users(id)
+        );
+
         INSERT OR IGNORE INTO users (name, phone, email, password, user_type, active)
         VALUES ('Admin', '11999999999', 'admin@admin.com', 'admin', 1, 1);
     `);

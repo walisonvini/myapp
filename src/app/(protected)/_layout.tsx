@@ -13,7 +13,6 @@ export default function ProtectedLayout() {
     return <Redirect href="/" />;
   }
 
-  // Se o usuário precisa alterar a senha e não está na tela de alteração de senha
   if (user?.change_password && !pathname.includes('changePassword')) {
     return <Redirect href="/changePassword" />;
   }
@@ -25,6 +24,45 @@ export default function ProtectedLayout() {
         name="user" 
         options={{
           title: "Detalhes do Usuário",
+          headerStyle: {
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen 
+        name="file" 
+        options={{
+          title: "Detalhes do Arquivo",
+          headerStyle: {
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen 
+        name="transcribe" 
+        options={{
+          title: "Transcrever Arquivo",
+          headerStyle: {
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen 
+        name="viewTranscription" 
+        options={{
+          title: "Visualizar Transcrição",
           headerStyle: {
             backgroundColor: '#000',
           },
