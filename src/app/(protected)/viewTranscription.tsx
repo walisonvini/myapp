@@ -1,5 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import * as FileSystem from 'expo-file-system';
 import { useLocalSearchParams, useRouter } from "expo-router";
+import * as Sharing from 'expo-sharing';
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -112,6 +114,36 @@ export default function ViewTranscription() {
     );
   }
 
+  async function handleDownload() {
+    if (!file || !file.text) return;
+
+    try {
+      setLoading(true);
+      
+      // Cria o nome do arquivo baseado no título
+      const fileName = `${file.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_transcricao.txt`;
+      const filePath = `${FileSystem.documentDirectory}${fileName}`;
+
+      // Escreve o conteúdo no arquivo
+      await FileSystem.writeAsStringAsync(filePath, file.text, {
+        encoding: FileSystem.EncodingType.UTF8
+      });
+
+      // Compartilha o arquivo
+      await Sharing.shareAsync(filePath, {
+        mimeType: 'text/plain',
+        dialogTitle: 'Baixar Transcrição',
+        UTI: 'public.plain-text'
+      });
+
+    } catch (error) {
+      console.error('Erro ao baixar arquivo:', error);
+      Alert.alert('Erro', 'Não foi possível baixar a transcrição.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>
@@ -149,7 +181,18 @@ export default function ViewTranscription() {
         </View>
 
         <View style={styles.transcriptionContainer}>
-          <Text style={styles.label}>Transcrição:</Text>
+          <View style={styles.transcriptionHeader}>
+            <Text style={styles.label}>Transcrição:</Text>
+            {file.text && (
+              <TouchableOpacity 
+                style={styles.downloadButton}
+                onPress={handleDownload}
+              >
+                <FontAwesome name="download" size={20} color="#2196F3" />
+                <Text style={styles.downloadButtonText}>Baixar TXT</Text>
+              </TouchableOpacity>
+            )}
+          </View>
           <View style={styles.textContainer}>
             <Text style={styles.text}>{file.text || 'Sem transcrição'}</Text>
           </View>
@@ -231,10 +274,15 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 20,
   },
+  transcriptionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   label: {
     fontSize: 16,
     color: '#666',
-    marginBottom: 8,
   },
   textContainer: {
     flex: 1,
@@ -274,5 +322,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     marginTop: 8,
+  },
+  downloadButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    padding: 8,
+  },
+  downloadButtonText: {
+    color: '#2196F3',
+    fontSize: 14,
+    fontWeight: '500',
   },
 }); 
