@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, Image, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../../../contexts/AuthContext";
 import useFileDatabase from "../database/useFileDatabase";
 
@@ -109,49 +109,56 @@ export default function Transcribe() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{file.title}</Text>
-        </View>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardAvoid}
+      >
+        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+          <View style={styles.content}>
+            <View style={styles.header}>
+              <Text style={styles.title}>{file.title}</Text>
+            </View>
 
-        <View style={styles.imageContainer}>
-          <Image 
-            source={{ uri: file.file_path }} 
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </View>
+            <View style={styles.imageContainer}>
+              <Image 
+                source={{ uri: file.file_path }} 
+                style={styles.image}
+                resizeMode="contain"
+              />
+            </View>
 
-        <View style={styles.transcriptionContainer}>
-          <Text style={styles.label}>Transcrição:</Text>
-          <TextInput
-            style={styles.input}
-            multiline
-            value={transcription}
-            onChangeText={setTranscription}
-            placeholder="Digite a transcrição aqui..."
-            placeholderTextColor="#666"
-          />
-        </View>
+            <View style={styles.transcriptionContainer}>
+              <Text style={styles.label}>Transcrição:</Text>
+              <TextInput
+                style={styles.input}
+                multiline
+                value={transcription}
+                onChangeText={setTranscription}
+                placeholder="Digite a transcrição aqui..."
+                placeholderTextColor="#666"
+              />
+            </View>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity 
-            style={[styles.button, styles.saveButton]}
-            onPress={handleSave}
-          >
-            <FontAwesome name="save" size={20} color="#fff" />
-            <Text style={styles.buttonText}>Salvar</Text>
-          </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity 
+                style={[styles.button, styles.saveButton]}
+                onPress={handleSave}
+              >
+                <FontAwesome name="save" size={20} color="#fff" />
+                <Text style={styles.buttonText}>Salvar</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity 
-            style={[styles.button, styles.completeButton]}
-            onPress={handleComplete}
-          >
-            <FontAwesome name="check" size={20} color="#fff" />
-            <Text style={styles.buttonText}>Finalizar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+              <TouchableOpacity 
+                style={[styles.button, styles.completeButton]}
+                onPress={handleComplete}
+              >
+                <FontAwesome name="check" size={20} color="#fff" />
+                <Text style={styles.buttonText}>Finalizar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -160,6 +167,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  keyboardAvoid: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
   loadingContainer: {
     flex: 1,
@@ -193,7 +209,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   imageContainer: {
-    flex: 1,
+    height: 300,
     backgroundColor: '#f8f8f8',
     borderRadius: 8,
     overflow: 'hidden',
@@ -204,7 +220,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   transcriptionContainer: {
-    flex: 1,
+    minHeight: 200,
     marginBottom: 20,
   },
   label: {
@@ -214,6 +230,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    minHeight: 200,
     backgroundColor: '#f8f8f8',
     borderRadius: 8,
     padding: 12,

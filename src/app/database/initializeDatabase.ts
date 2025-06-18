@@ -33,5 +33,8 @@ export async function initializeDatabase(database: SQLiteDatabase) {
 
         INSERT OR IGNORE INTO users (name, phone, email, password, user_type, active)
         VALUES ('Admin', '11999999999', 'admin@admin.com', 'admin', 1, 1);
+
+        INSERT OR IGNORE INTO users (name, phone, email, password, user_type, active)
+        VALUES ('User', '11999999999', 'user@user.com', 'user', 0, 1);
     `);
 }
