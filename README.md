@@ -165,10 +165,12 @@ npm run reset-project
 
 **Tela 1: Login**
 *Interface de autenticação com campos para email e senha*
+
 ![Tela de Login](imagens_projeto/login.png)
 
 **Tela 2: Registro**
 *Formulário para criação de nova conta de usuário*
+
 ![Tela de Registro](imagens_projeto/registro.png)
 
 ### 🏠 **Área Principal**
