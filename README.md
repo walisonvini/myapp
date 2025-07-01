@@ -177,42 +177,50 @@ npm run reset-project
 
 **Tela 3: Home/Dashboard**
 *Dashboard principal com estatísticas dos documentos e resumo do sistema*
+
 ![Tela Inicial](imagens_projeto/home.png)
 
 **Tela 4: Perfil do Usuário**
 *Gerenciamento de dados pessoais e configurações da conta*
+
 ![Perfil do Usuário](imagens_projeto/perfil_usuario.png)
 
 ### 📁 **Gerenciamento de Arquivos**
 
 **Tela 5: Lista de Arquivos**
 *Visualização de todos os documentos disponíveis para transcrição*
+
 ![Lista de Arquivos](imagens_projeto/arquivos.png)
 
 **Tela 6: Upload de Arquivo**
 *Interface para envio de novos documentos para transcrição*
+
 ![Upload de Arquivo](imagens_projeto/upload_arquivo.png)
 
 **Tela 7: Detalhes do Arquivo**
 *Visualização completa de um documento específico com opções de ação*
+
 ![Detalhes do Arquivo](imagens_projeto/detalhes_arquivo.png)
 
 ### ✍️ **Transcrição**
 
 **Tela 8: Transcrever Arquivo**
 *Interface para realização da transcrição de documentos*
+
 ![Transcrever Arquivo](imagens_projeto/transcrever_arquivo.png)
 
 ### 👥 **Administração**
 
 **Tela 9: Gestão de Usuários**
 *Painel administrativo para gerenciamento de usuários do sistema*
+
 ![Gestão de Usuários](imagens_projeto/gestao_usuarios.png)
 
 ### ⚙️ **Configurações**
 
 **Tela 10: Alterar Senha**
 *Formulário para modificação da senha do usuário*
+
 ![Alterar Senha](imagens_projeto/alterar_senha.png)
 
 ### 📊 **Funcionalidades por Tipo de Usuário**
