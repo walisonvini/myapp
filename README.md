@@ -162,50 +162,56 @@ npm run reset-project
 ## 📱 Telas do projeto
 
 ### 🔐 **Autenticação**
+
 **Tela 1: Login**
-![Tela de Login](imagens_projeto/login.png)
 *Interface de autenticação com campos para email e senha*
+![Tela de Login](imagens_projeto/login.png)
 
 **Tela 2: Registro**
-![Tela de Registro](imagens_projeto/registro.png)
 *Formulário para criação de nova conta de usuário*
+![Tela de Registro](imagens_projeto/registro.png)
 
 ### 🏠 **Área Principal**
+
 **Tela 3: Home/Dashboard**
-![Tela Inicial](imagens_projeto/home.png)
 *Dashboard principal com estatísticas dos documentos e resumo do sistema*
+![Tela Inicial](imagens_projeto/home.png)
 
 **Tela 4: Perfil do Usuário**
-![Perfil do Usuário](imagens_projeto/perfil_usuario.png)
 *Gerenciamento de dados pessoais e configurações da conta*
+![Perfil do Usuário](imagens_projeto/perfil_usuario.png)
 
 ### 📁 **Gerenciamento de Arquivos**
+
 **Tela 5: Lista de Arquivos**
-![Lista de Arquivos](imagens_projeto/arquivos.png)
 *Visualização de todos os documentos disponíveis para transcrição*
+![Lista de Arquivos](imagens_projeto/arquivos.png)
 
 **Tela 6: Upload de Arquivo**
-![Upload de Arquivo](imagens_projeto/upload_arquivo.png)
 *Interface para envio de novos documentos para transcrição*
+![Upload de Arquivo](imagens_projeto/upload_arquivo.png)
 
 **Tela 7: Detalhes do Arquivo**
-![Detalhes do Arquivo](imagens_projeto/detalhes_arquivo.png)
 *Visualização completa de um documento específico com opções de ação*
+![Detalhes do Arquivo](imagens_projeto/detalhes_arquivo.png)
 
 ### ✍️ **Transcrição**
+
 **Tela 8: Transcrever Arquivo**
-![Transcrever Arquivo](imagens_projeto/transcrever_arquivo.png)
 *Interface para realização da transcrição de documentos*
+![Transcrever Arquivo](imagens_projeto/transcrever_arquivo.png)
 
 ### 👥 **Administração**
+
 **Tela 9: Gestão de Usuários**
-![Gestão de Usuários](imagens_projeto/gestao_usuarios.png)
 *Painel administrativo para gerenciamento de usuários do sistema*
+![Gestão de Usuários](imagens_projeto/gestao_usuarios.png)
 
 ### ⚙️ **Configurações**
+
 **Tela 10: Alterar Senha**
-![Alterar Senha](imagens_projeto/alterar_senha.png)
 *Formulário para modificação da senha do usuário*
+![Alterar Senha](imagens_projeto/alterar_senha.png)
 
 ### 📊 **Funcionalidades por Tipo de Usuário**
 
